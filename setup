@@ -1,0 +1,35 @@
+#! /usr/bin/env bash
+
+DEV_WORKSPACE="${HOME}/dev"
+[ ! -d ${DEV_WORKSPACE} ] && mkdir ${DEV_WORKSPACE}
+
+function setup_osx() {
+  echo 'setup osx preferences'
+  ./osx
+}
+
+function setup_dotfiles() {
+  echo
+  echo
+  echo 'setup dotfiles'
+  [ ! -d "${DEV_WORKSPACE}/dotfiles" ] && git clone https://github.com/smauel/dotfiles.git ${DEV_WORKSPACE}
+  cd ${DEV_WORKSPACE}/dotfiles
+  ./install
+}
+
+function setup_scripts() {
+  echo
+  echo
+  echo 'setup scripts'
+  [ ! -d "${DEV_WORKSPACE}/scripts" ] && git clone https://github.com/smauel/scripts.git ${DEV_WORKSPACE}
+  cd ${DEV_WORKSPACE}/scripts
+  ./install
+}
+
+function setup() {
+  setup_osx
+  setup_dotfiles
+  setup_scripts
+}
+
+setup
